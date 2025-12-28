@@ -1,394 +1,106 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livinho de Pamela</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
-  
-    <style>
-        :root {
-            --bg-color: #051414;
-            --book-cover: #c20b0a;
-            --text-gold: #000000;
-            --text-dark: #2c3e50;
-            --mi-imagen: url('./assets/'); 
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Cartão ❤️</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; 
-            cursor: url('./assets/2.png'), auto !important;
-        }
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(to bottom, #fe8cad, #fcfcfc);
+      overflow: hidden;
+    }
 
-        body {
-            min-height: 100vh;
-            background-color: var(--bg-color);
-            background-image: linear-gradient(to bottom, #fe8cad, #fcfcfc);
-            font-family: 'Playfair Display', serif;
-            display: block; 
-            overflow: hidden;
-            perspective: 1000px; 
-        }
+    .slider {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      transition: transform 0.4s ease;
+    }
 
-        #snow-container {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 100; 
-        }
+    .page {
+      min-width: 100vw;
+      height: 100vh;
+      padding: 24px;
+      box-sizing: border-box;
 
-        .snowflake {
-            position: absolute;
-            border-radius: 50%;
-            animation: fall linear forwards;
-           
-        }
-        .snowflake::before {
-            content: "❤️";
-        }   
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
+      text-align: center;
+    }
 
-        @keyframes fall {
-            0% {
-                transform: translateY(-10vh) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: var(--opacity);
-            }
-            100% {
-                transform: translateY(110vh) translateX(var(--end-x)) rotate(var(--rot));
-                opacity: 0;
-            }
-        }
+    .page img {
+      max-width: 90%;
+      max-height: 50vh;
+      margin-bottom: 16px;
+    }
 
-        .book {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            perspective: none;
-            z-index: 10; 
-            transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
-        }
-
-        .book.open-state { transform: none; }
-        .book.center-back { transform: none; }
-
-        .paper {
-             position: absolute;
-            inset: 0;
-            transform: none !important;
-            box-shadow: none;
-            display: none;
-        }
-        .paper.active {
-    display: block;
-  }
-
-        .front, .back {
-            position: absolute;
-            width: 100%; height: 100%;
-            top: 0; left: 0;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            text-align: center;
-            border-radius: 5px;
-            overflow: hidden;
-            cursor: pointer;
-            background-color: #fffbf0;
-            background-image: var(--mi-imagen);
-            background-size: cover;
-            background-position: center; 
-        }
-
-        .front { z-index: 2; }
-        .back {
-            transform: rotateY(180deg);
-            z-index: 1;
-            border-left: 3px solid rgba(0,0,0,0.1);
-        }
-
-        .content-overlay {
-            background: rgba(255, 255, 255, 0); 
-            padding: 15px;
-            border-radius: 10px;
-            width: 100%; height: 100%;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-        }
-
-        #p1 .front {
-            background-image: none;
-            background-color: var(--book-cover);
-            border: 2px solid rgb(0, 0, 0);
-            color: white;
-        }
-        
-        .cover-img {
-            width: 150px; height: 150px;
-            object-fit: cover;
-            margin-bottom: 30px;
-            
-        }
-
-        #p3 .back {
-            background-image: none;
-            background-color: var(--book-cover);
-            color: white;
-            border: 2px solid rgb(0, 0, 0);
-        }
-
-        h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            color:  #fff;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-        p {
-            font-size: 1.6rem;
-            line-height: 1.6;
-            color: var(--text-dark);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        .cover-text { color: var(--text-gold); font-size: 1.2rem; font-style: italic; font-weight: normal; }
-        
-        .photo-frame {
-            width: 85%; height: 55%;
-            background: #fff;
-            padding: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transform: rotate(2deg);
-            margin-bottom: 20px;
-        }
-        .photo-frame img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            border: 1px solid #eee;
-        }
-        .caption {
-            font-family: 'Great Vibes', cursive;
-            font-size: 1.8rem;
-            color: #000000;
-            background: rgba(255,255,255,0.8);
-            padding: 5px 15px;
-            border-radius: 15px;
-        }
-
-        #p1 { z-index: 3; }
-        #p2 { z-index: 2; }
-        #p3 { z-index: 1; }
-
-        .flipped { transform: rotateY(-180deg); }
-        
-        .hint {
-            position: absolute; bottom: 5px;
-            color: rgb(255, 255, 255); font-size: 0.7rem;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-
-        @media (max-width: 600px) {
-            .book { width: 90vw; height: 60vh; }
-            h1 { font-size: 2.5rem; }
-            .book.open-state { transform: translateX(0); }
-            .book.center-back { transform: translateX(0); }
-        }
-    </style>
+    .hint {
+      position: fixed;
+      bottom: 16px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+  </style>
 </head>
+
 <body>
 
-    <div id="snow-container"></div>
+  <div class="slider" id="slider">
 
-    <div class="book" id="book">
-        <div class="paper" id="p1">
-            <div class="front" id="p1-front">
-                <div class="content-overlay">
-                    <img src="./assets/5.png" alt="Livinho e Pamela" class="cover-img">
-                    <h1>Feliz 1 Mês de Nós!</h1>
-                    <p class="cover-text">Só o começo do nosso nós.</p>
-                    <p class="hint">(Toque para abrir)</p>
-                </div>
-            </div>
-            <div class="back" id="p1-back">
-                <div class="content-overlay">
-                    <p>Um mês não é sobre o tempo, é sobre tudo o que a gente construiu nele..</p>
-                    <p>As conversas, as risadas, os sequestros rsrs, os momentos do nosso dia a dia, ficaram tão especiais porque foram com você!</p>
-                    <p class="hint" style="font-size:0.15rem; color:#888;"></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="paper" id="p2">
-            <div class="front" id="p2-front">
-                <div class="content-overlay">
-                    <div class="photo-frame">
-                        <img src="./assets/f1.png" alt="Foto 1">
-                    </div>
-                    <div class="caption">Gosto de estar assim, abraçadinho com você!</div>
-                </div>
-            </div>
-            <div class="back" id="p2-back">
-                <div class="content-overlay">
-                    <p>Com você os dias ficam muito melhores. Posso passar horas e horas contigo e ainda assim parece pouco. Me sinto tão bem e feliz, e gosto muito do que a gente tem.</p>
-                    <p>Obrigado por ser quem você é e por dividir isso comigo.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="paper" id="p3">
-            <div class="front" id="p3-front">
-                <div class="content-overlay">
-                    <div class="photo-frame" style="transform: rotate(-2deg);">
-                        <img src="./assets/f3.png" alt="Foto 2">
-                    </div>
-                    <div class="caption">A sua felicidade, é a minha felicidade!</div>
-                </div>
-            </div>
-            <div class="back" id="p3-back">
-                <div class="content-overlay">
-                    <h1>Eu <br> Amo <br> Você!</h1>
-                    <p class="cover-text">Que venham muitos meses, anos, sempre ao seu lado.</p>
-                    <br>
-                    <p class="cover-text" style="font-size: 1.5rem; color: rgb(0, 0, 0);">Do seu amor, Livinho</p>
-                    <p class="hint" style="margin-top:20px;">(Toque para voltar ao início)</p>
-                </div>
-            </div>
-        </div>
+    <div class="page">
+      <img src="./assets/f1.png">
+      <p>Texto da primeira página 💖</p>
     </div>
 
-    <script>
-        const book = document.getElementById('book');
-        const p1 = document.getElementById('p1');
-        const p2 = document.getElementById('p2');
-        const p3 = document.getElementById('p3');
+    <div class="page">
+      <img src="./assets/f2.png">
+      <p>Verso da primeira 🥹</p>
+    </div>
 
-        const p1Front = document.getElementById('p1-front');
-        const p1Back = document.getElementById('p1-back');
-        const p2Front = document.getElementById('p2-front');
-        const p2Back = document.getElementById('p2-back');
-        const p3Front = document.getElementById('p3-front');
-        const p3Back = document.getElementById('p3-back');
+    <div class="page">
+      <img src="./assets/f3.png">
+      <p>Outra mensagem ❤️</p>
+    </div>
 
-        const animationDelay = 600;
+    <div class="page">
+      <img src="./assets/f4.png">
+      <p>Verso final ✨</p>
+    </div>
 
-        function goNext(pageElement, nextZ) {
-            pageElement.classList.add('flipped');
-            if(pageElement.id === 'p1') {
-                book.classList.add('open-state');
-            } else if (pageElement.id === 'p3') {
-                book.classList.remove('open-state');
-                book.classList.add('center-back');
-            }
-            setTimeout(() => { pageElement.style.zIndex = nextZ; }, animationDelay);
-        }
+  </div>
 
-        function goPrev(pageElement, originalZ) {
-            pageElement.classList.remove('flipped');
-            if(pageElement.id === 'p1') {
-                book.classList.remove('open-state');
-            }
-            setTimeout(() => { pageElement.style.zIndex = originalZ; }, animationDelay);
-        }
+  <div class="hint">Deslize para o lado 👉</div>
 
-        function closeBook() {
-            p3.classList.remove('flipped');
-            p2.classList.remove('flipped');
-            p1.classList.remove('flipped');
-            book.classList.remove('center-back');
-            book.classList.remove('open-state');
-            setTimeout(() => {
-                p3.style.zIndex = 1; p2.style.zIndex = 2; p1.style.zIndex = 3;
-            }, animationDelay);
-        }
+  <script>
+    const slider = document.getElementById('slider');
+    let index = 0;
 
-        p1Front.addEventListener('click', () => { goNext(p1, 1); });
-        p1Back.addEventListener('click', () => { goPrev(p1, 3); });
-        p2Front.addEventListener('click', () => { goNext(p2, 2); });
-        p2Back.addEventListener('click', () => { goPrev(p2, 2); });
-        p3Front.addEventListener('click', () => { goNext(p3, 3); });
-        p3Back.addEventListener('click', closeBook);
+    let startX = 0;
 
-
-        const snowContainer = document.getElementById('snow-container');
-
-        function createSnowflake() {
-            const flake = document.createElement('div');
-            flake.classList.add('snowflake');
-            const size = Math.random() * 4 + 2; 
-            flake.style.width = `${size}px`;
-            flake.style.height = `${size}px`;
-
-            const startLeft = Math.random() * 100;
-            flake.style.left = `${startLeft}vw`;
-
-            const duration = Math.random() * 5 + 5; 
-            flake.style.animationDuration = `${duration}s`;
-
-            const endX = (Math.random() - 0.5) * 200; 
-            flake.style.setProperty('--end-x', `${endX}px`);
-
-            const rot = (Math.random() - 0.5) * 720; 
-            flake.style.setProperty('--rot', `${rot}deg`);
-
-            flake.style.setProperty('--opacity', Math.random() * 0.5 + 0.3);
-
-           
-            if(size < 3) {
-                flake.style.filter = `blur(1px)`;
-                flake.style.zIndex = 0; 
-            } else {
-                 flake.style.zIndex = 20;
-            }
-
-            snowContainer.appendChild(flake);
-
-            setTimeout(() => { flake.remove(); }, duration * 1000);
-        }
-
-        setInterval(createSnowflake, 1); 
-        
-        const isMobile = window.innerWidth <= 600;
-
-if (isMobile) {
-  const pages = [
-    { paper: p1, side: 'front' },
-    { paper: p1, side: 'back' },
-    { paper: p2, side: 'front' },
-    { paper: p2, side: 'back' },
-    { paper: p3, side: 'front' },
-    { paper: p3, side: 'back' }
-  ];
-
-  let current = 0;
-
-  function renderPage() {
-    document.querySelectorAll('.paper').forEach(p => {
-      p.classList.remove('active', 'show-front', 'show-back');
+    document.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
     });
 
-    const { paper, side } = pages[current];
-    paper.classList.add('active');
-    paper.classList.add(side === 'front' ? 'show-front' : 'show-back');
-  }
+    document.addEventListener('touchend', e => {
+      const endX = e.changedTouches[0].clientX;
+      if (endX < startX - 50) index++;
+      if (endX > startX + 50) index--;
 
-  renderPage();
+      if (index < 0) index = 0;
+      if (index > slider.children.length - 1)
+        index = slider.children.length - 1;
 
-  document.body.addEventListener('click', () => {
-    current++;
-    if (current >= pages.length) current = 0;
-    renderPage();
-  });
-}
+      slider.style.transform = `translateX(-${index * 100}vw)`;
+    });
+  </script>
 
-
-    </script>
 </body>
-
- 
 </html>
