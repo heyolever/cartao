@@ -21,17 +21,13 @@
         }
 
         body {
-      margin: 0;
-      padding: 16px;
-      font-family: 'Playfair Display', serif;
-
-      background-image: linear-gradient(to bottom, #fe8cad, #fcfcfc);
-
-      display: block;
-      height: auto;
-      overflow-x: hidden;
-      overflow-y: auto;
-
+            min-height: 100vh;
+            background-color: var(--bg-color);
+            background-image: linear-gradient(to bottom, #fe8cad, #fcfcfc);
+            font-family: 'Playfair Display', serif;
+            display: block; 
+            overflow: hidden;
+            perspective: 1000px; 
         }
 
         #snow-container {
@@ -68,21 +64,26 @@
 
         .book {
             position: relative;
-            width: 100px;
-            max-widht: 100%;
-            height: auto;
+            width: 100vw;
+            height: 100vh;
             perspective: none;
+            z-index: 10; 
+            transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
         }
 
         .book.open-state { transform: none; }
         .book.center-back { transform: none; }
 
         .paper {
-            position: relative;
-            width: 100%;
-            height: auto%;
-            margin-bottom: 40px;
+             position: absolute;
+            inset: 0;
+            transform: none !important;
+            box-shadow: none;
+            display: none;
         }
+        .paper.active {
+    display: block;
+  }
 
         .front, .back {
             position: absolute;
@@ -193,7 +194,7 @@
         @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
         @media (max-width: 600px) {
-            .book { width: 90vw; height: auto; }
+            .book { width: 90vw; height: 60vh; }
             h1 { font-size: 2.5rem; }
             .book.open-state { transform: translateX(0); }
             .book.center-back { transform: translateX(0); }
@@ -351,6 +352,40 @@
         }
 
         setInterval(createSnowflake, 1); 
+        
+        const isMobile = window.innerWidth <= 600;
+
+if (isMobile) {
+  const pages = [
+    { paper: p1, side: 'front' },
+    { paper: p1, side: 'back' },
+    { paper: p2, side: 'front' },
+    { paper: p2, side: 'back' },
+    { paper: p3, side: 'front' },
+    { paper: p3, side: 'back' }
+  ];
+
+  let current = 0;
+
+  function renderPage() {
+    document.querySelectorAll('.paper').forEach(p => {
+      p.classList.remove('active', 'show-front', 'show-back');
+    });
+
+    const { paper, side } = pages[current];
+    paper.classList.add('active');
+    paper.classList.add(side === 'front' ? 'show-front' : 'show-back');
+  }
+
+  renderPage();
+
+  document.body.addEventListener('click', () => {
+    current++;
+    if (current >= pages.length) current = 0;
+    renderPage();
+  });
+}
+
 
     </script>
 </body>
