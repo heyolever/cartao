@@ -17,18 +17,17 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; 
-            cursor: url('2.png'), auto !important;
+            cursor: url('./assets/2.png'), auto !important;
         }
 
         body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            min-height: 100vh;
             background-color: var(--bg-color);
             background-image: linear-gradient(to bottom, #fe8cad, #fcfcfc);
             font-family: 'Playfair Display', serif;
-            overflow: hidden;
+            display: block; 
+            overflow-x: auto;
+            overflow-y: auto;
             perspective: 1000px; 
         }
 
@@ -73,8 +72,8 @@
             transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
         }
 
-        .book.open-state { transform: translateX(50%); }
-        .book.center-back { transform: translateX(100%); }
+        .book.open-state { transform: none; }
+        .book.center-back { transform: none; }
 
         .paper {
             position: absolute;
